@@ -285,7 +285,7 @@ var evocation = [
   ["Sending", 3],
   ["Wall of Sand", 3],
   ["Wall of Water", 3],
-  [],
+  ["Fire Shield", 4],
   [],
   [],
   [],
