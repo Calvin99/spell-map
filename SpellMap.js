@@ -296,7 +296,7 @@ var evocation = [
   ["Immolation", 5],
   ["Wall of Force", 5],
   ["Wall of Stone", 5],
-  [],
+  ["Chain<>Lightning", 6],
   [],
   [],
   [],
