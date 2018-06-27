@@ -484,6 +484,21 @@ function draw() {
 
     ctx.fillStyle = "#888";
     ctx.fillRect(0, 465, 1200, 255);
+    
+	ctx.fillStyle = "#333";
+    for (i = 0; i < 6; i++) {
+    	ctx.beginPath();
+    	if (i % 2 == 0) {
+			for (j = 0; j < 15; j++) { 
+				ctx.arc(j * 80 + 40, i * 70 + 35, 2, 0, 2 * Math.PI, false);
+			}
+    	} else {
+			for (j = 0; j < 14; j++) { 
+    			ctx.arc(j * 80 + 80, i * 70 + 35, 2, 0, 2 * Math.PI, false);
+    		}
+    	}
+    	ctx.fill();
+    }
 
     ctx.globalAlpha = 0.1;
     ctx.fillStyle = colors.get(menuSchool);
@@ -548,6 +563,11 @@ function draw() {
     }
 
     for (i = 0; i < spells.length; i++) {
+    	if (spells[i].y < 440 && !spells[i].held) {
+			spells[i].y = Math.round((spells[i].y - 17) / 70) * 70 + 35;
+			if (Math.round((spells[i].y - 17) / 70) % 2 == 0) spells[i].x = Math.round((spells[i].x - 40) / 80) * 80 + 40;
+			else spells[i].x = Math.round((spells[i].x - 20) / 80) * 80;
+    	}
         if (spells[i].y < 440 || spells[i].school == menuSchool || spells[i].held || spells[i].highlight) spellDraw(spells[i]);
     }
 
