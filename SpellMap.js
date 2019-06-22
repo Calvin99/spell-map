@@ -97,43 +97,33 @@ function spellDraw(spell) {
     }
 }
 
-function testWhite(x) {
-    var white = new RegExp(/^\s$/);
-    return white.test(x.charAt(0));
-};
+function wrapText(context, text, x, y, maxWidth, lineHeight) {
+	var words = text.split(' ');
+	var line = '';
 
-function wordWrap(str, maxWidth) {
-    var newLineStr = "\n"; done = false; res = '';
-    do {                    
-        found = false;
-        // Inserts new line at first whitespace of the line
-        for (i = maxWidth - 1; i >= 0; i--) {
-            if (testWhite(str.charAt(i))) {
-                res = res + [str.slice(0, i), newLineStr].join('');
-                str = str.slice(i + 1);
-                found = true;
-                break;
-            }
-        }
-        // Inserts new line at maxWidth position, the word is too long to wrap
-        if (!found) {
-            res += [str.slice(0, maxWidth), newLineStr].join('');
-            str = str.slice(maxWidth);
-        }
-
-        if (str.length < maxWidth)
-            done = true;
-    } while (!done);
-
-    return res + str;
+	for(var n = 0; n < words.length; n++) {
+	  var testLine = line + words[n] + ' ';
+	  var metrics = context.measureText(testLine);
+	  var testWidth = metrics.width;
+	  if (testWidth > maxWidth && n > 0) {
+	    context.fillText(line, x, y);
+	    line = words[n] + ' ';
+	    y += lineHeight;
+	  }
+	  else {
+	    line = testLine;
+	  }
+	}
+	context.fillText(line, x, y);
 }
 
 function spellLabel(spell) {
 	if (spell.highlight) ctx.fillStyle = 'blue';
 	else ctx.fillStyle = 'white';
+	
 	ctx.font = "10px Verdana";
-    ctx.textAlign = "center";
-	ctx.fillText(wordWrap(spell.name,40), spell.x, spell.y - 12);
+    	ctx.textAlign = "center";
+	wrapText(ctx,spell.name,spell.x,spell.y,10,14);
 	ctx.fillText("Lvl: " + spell.level, spell.x, spell.y + 20);
 }
 
