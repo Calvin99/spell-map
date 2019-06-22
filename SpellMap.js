@@ -97,6 +97,11 @@ function spellDraw(spell) {
     }
 }
 
+function testWhite(x) {
+    var white = new RegExp(/^\s$/);
+    return white.test(x.charAt(0));
+};
+
 function wordWrap(str, maxWidth) {
     var newLineStr = "\n"; done = false; res = '';
     do {                    
