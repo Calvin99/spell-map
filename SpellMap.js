@@ -133,7 +133,7 @@ function spellLabel(spell) {
 	else ctx.fillStyle = 'white';
 	ctx.font = "10px Verdana";
     ctx.textAlign = "center";
-	ctx.fillText(wordWrap(spell.name,40));
+	ctx.fillText(wordWrap(spell.name,40), spell.x, spell.y - 12);
 	ctx.fillText("Lvl: " + spell.level, spell.x, spell.y + 20);
 }
 
