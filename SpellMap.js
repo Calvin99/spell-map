@@ -227,6 +227,7 @@ var divination = [
 	["Identify", 1],
 	["Detect<>Thoughts", 2],
 	["Locate Object", 2],
+	["Mind Spike", 2],
 	["See<>Invisibility", 2],
 	["Clairvoyance", 3],
 	["Tongues", 3],
@@ -237,7 +238,7 @@ var divination = [
 	["Rary's Telepathic<>Bond", 5],
 	["Scrying", 5],
 	["True Seeing", 5],
-	["Forsight", 9]
+	["Foresight", 9]
 ];
 for(i = 0; i < divination.length; i++) {
 	spells[spells.length] = new spell(divination[i][0], "Divination", divination[i][1], spellX[i], spellY[i]);
@@ -245,24 +246,35 @@ for(i = 0; i < divination.length; i++) {
 //Enchantment 
 var enchantment = [
 	["Friends", 0],
+	["Encode Thoughts", 0],
 	["Charm Person", 1],
 	["Sleep", 1],
 	["Tasha's Hideous<>Laughter", 1],
 	["Crown of<>Madness", 2],
+	["Gift of Gab", 2],
 	["Hold Person", 2],
+	["Jim's Glowing Coin", 2],
 	["Sugguestion", 2],
+	["Catnap", 3],
+	["Enemies Abound", 3],
+	["Fast Friends", 3],
+	["Incite Greed", 3],
+	["Charm Monster", 4],
 	["Confusion", 4],
 	["Dominate Person", 5],
 	["Geas", 5],
 	["Hold Monster", 5],
 	["Modify Memory", 5],
+	["Synaptic Static", 5],
 	["Mass<>Suggestion", 6],
 	["Otto's Irresistible<>Dance", 6],
+	["Power Word Pain", 7],
 	["Antipathy/<>Sympathy", 8],
 	["Dominate<>Monster", 8],
 	["Feeblemind", 8],
 	["Power Word<>Stun", 8],
-	["Power Word<>Kill", 9]
+	["Power Word<>Kill", 9],
+	["Psychic Scream", 9]
 ];
 for(i = 0; i < enchantment.length; i++) {
 	spells[spells.length] = new spell(enchantment[i][0], "Enchantment", enchantment[i][1], spellX[i], spellY[i]);
@@ -285,6 +297,7 @@ var evocation = [
   ["Magic Missile", 1],
   ["Thunderwave", 1],
   ["Witch<>Bolt", 1],
+  ["Acid Arrow", 2],
   ["Aganazzar’s<>Scorcher", 2],
   ["Continual<>Flame", 2],
   ["Darkness", 2],
@@ -294,6 +307,7 @@ var evocation = [
   ["Shatter", 2],
   ["Snilloc’s Snowball<>Swarm", 2],
   ["Fireball", 3],
+  ["Leomund's Tiny Hut", 3],
   ["Lightning Bolt", 3],
   ["Melf's Minute<>Meteors", 3],
   ["Sending", 3],
@@ -302,30 +316,25 @@ var evocation = [
   ["Fire Shield", 4],
   ["Ice Storm", 4],
   ["Otiluke’s<>Resilient Sphere", 4],
+  ["Sickening Radiance", 4],
   ["Storm<>Sphere", 4],
   ["Vitriolic Sphere", 4],
   ["Wall of Fire", 4],
+  ["Arcane Hand", 5],
   ["Bigby's Hand", 5],
   ["Cone of Cold", 5],
+  ["Dawn", 5],
   ["Immolation", 5],
   ["Wall of Force", 5],
+  ["Wall of Light", 5],
   ["Wall of Stone", 5],
-  ["Chain<>Lightning", 6],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  []
+  ["Chain<>Lightning", 6]
 ];
-/*for(i = 0; i < evocation.length; i++) {
+for(i = 0; i < evocation.length; i++) {
 	spells[spells.length] = new spell(evocation[i][0], "Evocation", evocation[i][1], spellX[i], spellY[i]);
-}*/
 
+
+/*
 spells[spells.length] = new spell("Booming<>Blade", "Evocation", 0, 40, 500);
 spells[spells.length] = new spell("Dancing Lights", "Evocation", 0, 120, 500);
 spells[spells.length] = new spell("Fire Bolt", "Evocation", 0, 200, 500);
@@ -380,6 +389,8 @@ spells[spells.length] = new spell("Wirlwind", "Evocation", 7, 440, 680);
 spells[spells.length] = new spell("Sunburst", "Evocation", 8, 520, 680);
 spells[spells.length] = new spell("Telepathy", "Evocation", 8, 600, 680);
 spells[spells.length] = new spell("Meteor Swarm", "Evocation", 9, 680, 680);
+*/
+
 //Illusion
 spells[spells.length] = new spell("Minor Illusion", "Illusion", 0, 40, 500);
 spells[spells.length] = new spell("Color Spray", "Illusion", 1, 120, 500);
