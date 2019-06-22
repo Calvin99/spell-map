@@ -97,6 +97,42 @@ function spellDraw(spell) {
     }
 }
 
+function wordWrap(str, maxWidth) {
+    var newLineStr = "\n"; done = false; res = '';
+    do {                    
+        found = false;
+        // Inserts new line at first whitespace of the line
+        for (i = maxWidth - 1; i >= 0; i--) {
+            if (testWhite(str.charAt(i))) {
+                res = res + [str.slice(0, i), newLineStr].join('');
+                str = str.slice(i + 1);
+                found = true;
+                break;
+            }
+        }
+        // Inserts new line at maxWidth position, the word is too long to wrap
+        if (!found) {
+            res += [str.slice(0, maxWidth), newLineStr].join('');
+            str = str.slice(maxWidth);
+        }
+
+        if (str.length < maxWidth)
+            done = true;
+    } while (!done);
+
+    return res + str;
+}
+
+function spellLabel(spell) {
+	if (spell.highlight) ctx.fillStyle = 'blue';
+	else ctx.fillStyle = 'white';
+	ctx.font = "10px Verdana";
+    ctx.textAlign = "center";
+	ctx.fillText(wordWrap(spell.name,40));
+	ctx.fillText("Lvl: " + spell.level, spell.x, spell.y + 20);
+}
+
+/*
 function spellLabel(spell) {
     if (spell.highlight) ctx.fillStyle = 'blue';
     else ctx.fillStyle = 'white';
@@ -110,6 +146,7 @@ function spellLabel(spell) {
     }
     ctx.fillText("Lvl: " + spell.level, spell.x, spell.y + 20);
 }
+*/
 
 var spellX = [
 	40, 120, 200, 280, 360, 440, 520, 600, 680, 760, 840, 920, 1000, 1080, 1160,
