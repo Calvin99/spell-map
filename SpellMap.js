@@ -123,38 +123,24 @@ function spellLabel(spell) {
 	
 	ctx.font = "10px Verdana";
     	ctx.textAlign = "center";
-	wrapText(ctx,spell.name,spell.x,spell.y,10,14);
+	wrapText(ctx,spell.name,spell.x,spell.y - 20,50,9);
 	ctx.fillText("Lvl: " + spell.level, spell.x, spell.y + 20);
 }
 
-/*
-function spellLabel(spell) {
-    if (spell.highlight) ctx.fillStyle = 'blue';
-    else ctx.fillStyle = 'white';
-    ctx.font = "10px Verdana";
-    ctx.textAlign = "center";
-    if (spell.name.lastIndexOf("<>") < 0) {
-        ctx.fillText(spell.name, spell.x, spell.y - 12);
-    } else {
-        ctx.fillText(spell.name.substr(0, spell.name.lastIndexOf("<>")), spell.x, spell.y - 22);
-        ctx.fillText(spell.name.substr(spell.name.lastIndexOf("<>") + 2), spell.x, spell.y - 12);
-    }
-    ctx.fillText("Lvl: " + spell.level, spell.x, spell.y + 20);
-}
-*/
-
 var spellX = [
 	40, 120, 200, 280, 360, 440, 520, 600, 680, 760, 840, 920, 1000, 1080, 1160,
+  40, 120, 200, 280, 360, 440, 520, 600, 680, 760, 840, 920, 1000, 1080, 1160,
   40, 120, 200, 280, 360, 440, 520, 600, 680, 760, 840, 920, 1000, 1080, 1160,
   40, 120, 200, 280, 360, 440, 520, 600, 680, 760, 840, 920, 1000, 1080, 1160,
   40, 120, 200, 280, 360, 440, 520, 600, 680, 760, 840, 920, 1000, 1080, 1160
 ];
 
 var spellY = [
-	500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500,
-  560, 560, 560, 560, 560, 560, 560, 560, 560, 560, 560, 560, 560, 560, 560,
-  620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620,
-  680, 680, 680, 680, 680, 680, 680, 680, 680, 680, 680, 680, 680, 680, 680
+	940, 940, 940, 940, 940, 940, 940, 940, 940, 940, 940, 940, 940, 940, 940,
+  1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,
+  1060, 1060, 1060, 1060, 1060, 1060, 1060, 1060, 1060, 1060, 1060, 1060, 1060, 1060, 1060,
+  1120, 1120, 1120, 1120, 1120, 1120, 1120, 1120, 1120, 1120, 1120, 1120, 1120, 1120, 1120, 
+  1180, 1180, 1180, 1180, 1180, 1180, 1180, 1180, 1180, 1180, 1180, 1180, 1180, 1180, 1180
 ];
 
 var spells = [];
@@ -177,7 +163,7 @@ var abjuration = [
 	["Protection from Energy",3],
 	["Remove Curse",3],
 	["Banishment",4],
-	["Mordenkainen’s Private Sanctum",4],
+	["Mordenkainens Private Sanctum",4],
 	["Stoneskin",4],
 	["Planar Binding",5],
 	["Globe of Invulnerability",6],
@@ -204,7 +190,7 @@ var conjuration = [
 	["Fog Cloud",1],
 	["Grease",1],
 	["Ice Knife",1],
-	["Tenser’s Floating Disk",1],
+	["Tensers Floating Disk",1],
 	["Unseen Servant",1],
 	["Cloud of Daggers",2],
 	["Dust Devil",2],
@@ -218,9 +204,9 @@ var conjuration = [
 	["Tidal Wave",3],
 	["Conjure Minor Elementals",4],
 	["Dimension Door",4],
-	["Evard’s Black Tentacles",4],
-	["Leomund’s Secret Chest",4],
-	["Mordenkainen’s Faithful Hound",4],
+	["Evards Black Tentacles",4],
+	["Leomunds Secret Chest",4],
+	["Mordenkainens Faithful Hound",4],
 	["Summon Greater Demon",4],
 	["Watery Sphere",4],
 	["Cloudkill",5],
@@ -230,9 +216,9 @@ var conjuration = [
 	["Steel Wind Strike",5],
 	["Teleportation Circle",5],
 	["Arcane Gate",6],
-	["Drawmij’s Instant Summons",6],
+	["Drawmijs Instant Summons",6],
 	["Scatter",6],
-	["Mordenkainen’s Magnificent Mansion",7],
+	["Mordenkainens Magnificent Mansion",7],
 	["Plane Shift",7],
 	["Teleport",7],
 	["Demiplane",8],
@@ -261,7 +247,7 @@ var divination = [
 	["Locate Creature",4],
 	["Contact Other Plane",5],
 	["Legend Lore",5],
-	["Rary’s Telepathic Bond",5],
+	["Rarys Telepathic Bond",5],
 	["Scrying",5],
 	["True Seeing",6],
 	["Foresight",9]
@@ -274,7 +260,7 @@ var enchantment = [
 	["Friends",0],
 	["Charm Person",1],
 	["Sleep",1],
-	["Tasha’s Hideous Laughter",1],
+	["Tashas Hideous Laughter",1],
 	["Crown of Madness",2],
 	["Hold Person",2],
 	["Suggestion",2],
@@ -288,7 +274,7 @@ var enchantment = [
 	["Modify Memory",5],
 	["Synaptic Static",5],
 	["Mass Suggestion",6],
-	["Otto’s Irresistible Dance",6],
+	["Ottos Irresistible Dance",6],
 	["Power Word Pain",7],
 	["Antipathy/Sympathy",8],
 	["Dominate Monster",8],
@@ -318,30 +304,30 @@ var evocation = [
 	["Magic Missile",1],
 	["Thunderwave",1],
 	["Witch Bolt",1],
-	["Aganazzar’s Scorcher",2],
+	["Aganazzars Scorcher",2],
 	["Continual Flame",2],
 	["Darkness",2],
 	["Gust of Wind",2],
-	["Melf’s Acid Arrow",2],
+	["Melfs Acid Arrow",2],
 	["Scorching Ray",2],
 	["Shatter",2],
-	["Snilloc’s Snowball Swarm",2],
+	["Snillocs Snowball Swarm",2],
 	["Warding Wind",2],
 	["Fireball",3],
-	["Leomund’s Tiny Hut",3],
+	["Leomunds Tiny Hut",3],
 	["Lightning Bolt",3],
-	["Melf’s Minute Meteors",3],
+	["Melfs Minute Meteors",3],
 	["Sending",3],
 	["Wall of Sand",3],
 	["Wall of Water",3],
 	["Fire Shield",4],
 	["Ice Storm",4],
-	["Otiluke’s Resilient Sphere",4],
+	["Otilukes Resilient Sphere",4],
 	["Sickening Radiance",4],
 	["Storm Sphere",4],
 	["Vitriolic Sphere",4],
 	["Wall of Fire",4],
-	["Bigby’s Hand",5],
+	["Bigbys Hand",5],
 	["Cone of Cold",5],
 	["Dawn",5],
 	["Immolation",5],
@@ -350,13 +336,13 @@ var evocation = [
 	["Wall of Stone",5],
 	["Chain Lightning",6],
 	["Contingency",6],
-	["Otiluke’s Freezing Sphere",6],
+	["Otilukes Freezing Sphere",6],
 	["Sunbeam",6],
 	["Wall of Ice",6],
 	["Crown of Stars",7],
 	["Delayed Blast Fireball",7],
 	["Forcecage",7],
-	["Mordenkainen’s Sword",7],
+	["Mordenkainens Sword",7],
 	["Prismatic Spray",7],
 	["Whirlwind",7],
 	["Maddening Darkness",8],
@@ -380,7 +366,7 @@ var illusion = [
 	["Invisibility",2],
 	["Magic Mouth",2],
 	["Mirror Image",2],
-	["Nystul’s Magic Aura",2],
+	["Nystuls Magic Aura",2],
 	["Phantasmal Force",2],
 	["Shadow Blade",2],
 	["Fear",3],
@@ -431,7 +417,7 @@ var necromancy = [
 	["Magic Jar",6],
 	["Soul Cage",6],
 	["Finger of Death",7],
-	["Abi-Dalzim’s Horrid Wilting",8],
+	["Abi-Dalzims Horrid Wilting",8],
 	["Clone",8],
 	["Astral Projection",9]
 ];
@@ -454,13 +440,13 @@ var transmutation = [
 	["Longstrider",1],
 	["Alter Self",2],
 	["Darkvision",2],
-	["Dragon's Breath",2],
+	["Dragons Breath",2],
 	["Earthbind",2],
 	["Enlarge/Reduce",2],
 	["Knock",2],
 	["Levitate",2],
 	["Magic Weapon",2],
-	["Maximilian’s Earthen Grasp",2],
+	["Maximilians Earthen Grasp",2],
 	["Pyrotechnics",2],
 	["Rope Trick",2],
 	["Skywrite",2],
@@ -493,7 +479,7 @@ var transmutation = [
 	["Investiture of Stone",6],
 	["Investiture of Wind",6],
 	["Move Earth",6],
-	["Tenser’s Transformation",6],
+	["Tensers Transformation",6],
 	["Etherealness",7],
 	["Reverse Gravity",7],
 	["Sequester",7],
@@ -529,26 +515,26 @@ button.prototype.draw = function() {
 }
 
 var buttons = [];
-buttons[buttons.length] = new button(0, 440, 150, 25, "Abjuration");
-buttons[buttons.length] = new button(150, 440, 150, 25, "Conjuration");
-buttons[buttons.length] = new button(300, 440, 150, 25, "Divination");
-buttons[buttons.length] = new button(450, 440, 150, 25, "Enchantment");
-buttons[buttons.length] = new button(600, 440, 150, 25, "Evocation");
-buttons[buttons.length] = new button(750, 440, 150, 25, "Illusion");
-buttons[buttons.length] = new button(900, 440, 150, 25, "Necromancy");
-buttons[buttons.length] = new button(1050, 440, 150, 25, "Transmutation");
+buttons[buttons.length] = new button(0, 875, 150, 25, "Abjuration");
+buttons[buttons.length] = new button(150, 875, 150, 25, "Conjuration");
+buttons[buttons.length] = new button(300, 875, 150, 25, "Divination");
+buttons[buttons.length] = new button(450, 875, 150, 25, "Enchantment");
+buttons[buttons.length] = new button(600, 875, 150, 25, "Evocation");
+buttons[buttons.length] = new button(750, 875, 150, 25, "Illusion");
+buttons[buttons.length] = new button(900, 875, 150, 25, "Necromancy");
+buttons[buttons.length] = new button(1050, 875, 150, 25, "Transmutation");
 
 setInterval(draw, 1);
 
 function draw() {
     ctx.fillStyle = "#555";
-    ctx.fillRect(0, 0, 1200, 720);
+    ctx.fillRect(0, 0, 1200, 1200);
 
     ctx.fillStyle = "#888";
-    ctx.fillRect(0, 465, 1200, 255);
+    ctx.fillRect(0, 900, 1200, 300);
     
 	ctx.fillStyle = "#333";
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < 12; i++) {
     	ctx.beginPath();
     	if (i % 2 == 0) {
 			for (j = 0; j < 15; j++) { 
@@ -564,7 +550,7 @@ function draw() {
 
     ctx.globalAlpha = 0.1;
     ctx.fillStyle = colors.get(menuSchool);
-    ctx.fillRect(0, 465, 1200, 255);
+    ctx.fillRect(0, 900, 1200, 300);
     ctx.globalAlpha = 1;
 
     ctx.fillStyle = "orange";
@@ -587,12 +573,12 @@ function draw() {
     tokenCount = 0;
 
     for (i = 0; i < spells.length; i++) {
-        if (spells[i].y < 440) {
+        if (spells[i].y < 900) {
             if (spells[i].level > 0) preparedCount++;
             else cantripCount++;
             if (spells[i].token) tokenCount++;
             for (j = 0; j < spells.length; j++) {
-                if (spells[j].y < 440 && ((spells[i].level == spells[j].level && spells[i].whitelist.indexOf(spells[j].name) >= 0) || (spells[i].school == spells[j].school && Math.abs(spells[i].level - spells[j].level) == 1))) {
+                if (spells[j].y < 900 && ((spells[i].level == spells[j].level && spells[i].whitelist.indexOf(spells[j].name) >= 0) || (spells[i].school == spells[j].school && Math.abs(spells[i].level - spells[j].level) == 1))) {
                     ctx.beginPath();
                     ctx.moveTo(spells[i].x, spells[i].y);
                     ctx.lineTo(spells[j].x, spells[j].y);
@@ -601,6 +587,7 @@ function draw() {
             }
         }
     }
+
 
     for (i = 0; i < spells.length; i++) {
         if (spells[i].name == addSelect) {
@@ -625,16 +612,16 @@ function draw() {
     }
 
     for (i = 0; i < spells.length; i++) {
-    	if (spells[i].y < 440 && !spells[i].held) {
+    	if (spells[i].y < 900 && !spells[i].held) {
 			spells[i].y = Math.round((spells[i].y - 17) / 70) * 70 + 35;
 			if (Math.round((spells[i].y - 17) / 70) % 2 == 0) spells[i].x = Math.round((spells[i].x - 40) / 80) * 80 + 40;
 			else spells[i].x = Math.round((spells[i].x - 20) / 80) * 80;
     	}
-        if (spells[i].y < 440 || spells[i].school == menuSchool || spells[i].held || spells[i].highlight) spellDraw(spells[i]);
+        if (spells[i].y < 900 || spells[i].school == menuSchool || spells[i].held || spells[i].highlight) spellDraw(spells[i]);
     }
 
     for (i = 0; i < spells.length; i++) {
-        if (spells[i].y < 440 || spells[i].school == menuSchool || spells[i].held || spells[i].highlight) spellLabel(spells[i]);
+        if (spells[i].y < 900 || spells[i].school == menuSchool || spells[i].held || spells[i].highlight) spellLabel(spells[i]);
     }
 
     if (mode == "move") {
@@ -814,7 +801,7 @@ document.onmousedown = function(e) {
                     }
                 }
                 spells[i].held = true;
-            } else if (mode == "add" && spells[i].y < 440) {
+            } else if (mode == "add" && spells[i].y < 900) {
                 if (addSelect == "") addSelect = spells[i].name;
                 else if (spells[i].name == addSelect) addSelect = "";
                 else {
@@ -842,7 +829,7 @@ document.onmousedown = function(e) {
                         addSelect = "";
                     }
                 }
-            } else if (mode == "token" && spells[i].y < 440) {
+            } else if (mode == "token" && spells[i].y < 900) {
                 spells[i].token = !spells[i].token;
             }
             break;
@@ -881,7 +868,7 @@ document.onmouseup = function(e) {
             spells[i].held = false;
             if (spells[i].highlight) {
                 for (k = spells.length - 1; k >= 0; k--) {
-                    if (spells[k].y > 440) {
+                    if (spells[k].y > 900) {
                         spells[k].x = spells[k].homeX;
                         spells[k].y = spells[k].homeY;
                         spells[k].token = false;
@@ -894,7 +881,7 @@ document.onmouseup = function(e) {
                         }
                     }
                 }
-            } else if (spells[i].y > 440) {
+            } else if (spells[i].y > 900) {
                 spells[i].x = spells[i].homeX;
                 spells[i].y = spells[i].homeY;
                 spells[i].token = false;
