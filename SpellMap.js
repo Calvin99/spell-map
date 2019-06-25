@@ -136,11 +136,11 @@ var spellX = [
 ];
 
 var spellY = [
-	940, 940, 940, 940, 940, 940, 940, 940, 940, 940, 940, 940, 940, 940, 940,
-  1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,
-  1060, 1060, 1060, 1060, 1060, 1060, 1060, 1060, 1060, 1060, 1060, 1060, 1060, 1060, 1060,
-  1120, 1120, 1120, 1120, 1120, 1120, 1120, 1120, 1120, 1120, 1120, 1120, 1120, 1120, 1120, 
-  1180, 1180, 1180, 1180, 1180, 1180, 1180, 1180, 1180, 1180, 1180, 1180, 1180, 1180, 1180
+	640, 640, 640, 640, 640, 640, 640, 640, 640, 640, 640, 640, 640, 640, 640,
+  700, 700, 700, 700, 700, 700, 700, 700, 700, 700, 700, 700, 700, 700, 700,
+  760, 760, 760, 760, 760, 760, 760, 760, 760, 760, 760, 760, 760, 760, 760,
+  820, 820, 820, 820, 820, 820, 820, 820, 820, 820, 820, 820, 820, 820, 820, 
+  880, 880, 880, 880, 880, 880, 880, 880, 880, 880, 880, 880, 880, 880, 880
 ];
 
 var spells = [];
@@ -515,26 +515,26 @@ button.prototype.draw = function() {
 }
 
 var buttons = [];
-buttons[buttons.length] = new button(0, 875, 150, 25, "Abjuration");
-buttons[buttons.length] = new button(150, 875, 150, 25, "Conjuration");
-buttons[buttons.length] = new button(300, 875, 150, 25, "Divination");
-buttons[buttons.length] = new button(450, 875, 150, 25, "Enchantment");
-buttons[buttons.length] = new button(600, 875, 150, 25, "Evocation");
-buttons[buttons.length] = new button(750, 875, 150, 25, "Illusion");
-buttons[buttons.length] = new button(900, 875, 150, 25, "Necromancy");
-buttons[buttons.length] = new button(1050, 875, 150, 25, "Transmutation");
+buttons[buttons.length] = new button(0, 575, 150, 25, "Abjuration");
+buttons[buttons.length] = new button(150, 575, 150, 25, "Conjuration");
+buttons[buttons.length] = new button(300, 575, 150, 25, "Divination");
+buttons[buttons.length] = new button(450, 575, 150, 25, "Enchantment");
+buttons[buttons.length] = new button(600, 575, 150, 25, "Evocation");
+buttons[buttons.length] = new button(750, 575, 150, 25, "Illusion");
+buttons[buttons.length] = new button(900, 575, 150, 25, "Necromancy");
+buttons[buttons.length] = new button(1050, 575, 150, 25, "Transmutation");
 
 setInterval(draw, 1);
 
 function draw() {
     ctx.fillStyle = "#555";
-    ctx.fillRect(0, 0, 1200, 1200);
+    ctx.fillRect(0, 0, 1200, 900);
 
     ctx.fillStyle = "#888";
-    ctx.fillRect(0, 900, 1200, 300);
+    ctx.fillRect(0, 900, 900, 300);
     
 	ctx.fillStyle = "#333";
-    for (i = 0; i < 12; i++) {
+    for (i = 0; i < 9; i++) {
     	ctx.beginPath();
     	if (i % 2 == 0) {
 			for (j = 0; j < 15; j++) { 
@@ -550,7 +550,7 @@ function draw() {
 
     ctx.globalAlpha = 0.1;
     ctx.fillStyle = colors.get(menuSchool);
-    ctx.fillRect(0, 900, 1200, 300);
+    ctx.fillRect(0, 900, 900, 300);
     ctx.globalAlpha = 1;
 
     ctx.fillStyle = "orange";
@@ -573,12 +573,12 @@ function draw() {
     tokenCount = 0;
 
     for (i = 0; i < spells.length; i++) {
-        if (spells[i].y < 900) {
+        if (spells[i].y < 600) {
             if (spells[i].level > 0) preparedCount++;
             else cantripCount++;
             if (spells[i].token) tokenCount++;
             for (j = 0; j < spells.length; j++) {
-                if (spells[j].y < 900 && ((spells[i].level == spells[j].level && spells[i].whitelist.indexOf(spells[j].name) >= 0) || (spells[i].school == spells[j].school && Math.abs(spells[i].level - spells[j].level) == 1))) {
+                if (spells[j].y < 600 && ((spells[i].level == spells[j].level && spells[i].whitelist.indexOf(spells[j].name) >= 0) || (spells[i].school == spells[j].school && Math.abs(spells[i].level - spells[j].level) == 1))) {
                     ctx.beginPath();
                     ctx.moveTo(spells[i].x, spells[i].y);
                     ctx.lineTo(spells[j].x, spells[j].y);
@@ -612,16 +612,16 @@ function draw() {
     }
 
     for (i = 0; i < spells.length; i++) {
-    	if (spells[i].y < 900 && !spells[i].held) {
+    	if (spells[i].y < 600 && !spells[i].held) {
 			spells[i].y = Math.round((spells[i].y - 17) / 70) * 70 + 35;
 			if (Math.round((spells[i].y - 17) / 70) % 2 == 0) spells[i].x = Math.round((spells[i].x - 40) / 80) * 80 + 40;
 			else spells[i].x = Math.round((spells[i].x - 20) / 80) * 80;
     	}
-        if (spells[i].y < 900 || spells[i].school == menuSchool || spells[i].held || spells[i].highlight) spellDraw(spells[i]);
+        if (spells[i].y < 600 || spells[i].school == menuSchool || spells[i].held || spells[i].highlight) spellDraw(spells[i]);
     }
 
     for (i = 0; i < spells.length; i++) {
-        if (spells[i].y < 900 || spells[i].school == menuSchool || spells[i].held || spells[i].highlight) spellLabel(spells[i]);
+        if (spells[i].y < 600 || spells[i].school == menuSchool || spells[i].held || spells[i].highlight) spellLabel(spells[i]);
     }
 
     if (mode == "move") {
@@ -801,7 +801,7 @@ document.onmousedown = function(e) {
                     }
                 }
                 spells[i].held = true;
-            } else if (mode == "add" && spells[i].y < 900) {
+            } else if (mode == "add" && spells[i].y < 600) {
                 if (addSelect == "") addSelect = spells[i].name;
                 else if (spells[i].name == addSelect) addSelect = "";
                 else {
@@ -829,7 +829,7 @@ document.onmousedown = function(e) {
                         addSelect = "";
                     }
                 }
-            } else if (mode == "token" && spells[i].y < 900) {
+            } else if (mode == "token" && spells[i].y < 600) {
                 spells[i].token = !spells[i].token;
             }
             break;
@@ -868,7 +868,7 @@ document.onmouseup = function(e) {
             spells[i].held = false;
             if (spells[i].highlight) {
                 for (k = spells.length - 1; k >= 0; k--) {
-                    if (spells[k].y > 900) {
+                    if (spells[k].y > 600) {
                         spells[k].x = spells[k].homeX;
                         spells[k].y = spells[k].homeY;
                         spells[k].token = false;
@@ -881,7 +881,7 @@ document.onmouseup = function(e) {
                         }
                     }
                 }
-            } else if (spells[i].y > 900) {
+            } else if (spells[i].y > 600) {
                 spells[i].x = spells[i].homeX;
                 spells[i].y = spells[i].homeY;
                 spells[i].token = false;
