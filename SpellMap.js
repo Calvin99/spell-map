@@ -97,354 +97,402 @@ function spellDraw(spell) {
     }
 }
 
+function wrapText(context, text, x, y, maxWidth, lineHeight) {
+	var words = text.split(' ');
+	var line = '';
+
+	for(var n = 0; n < words.length; n++) {
+	  var testLine = line + words[n] + ' ';
+	  var metrics = context.measureText(testLine);
+	  var testWidth = metrics.width;
+	  if (testWidth > maxWidth && n > 0) {
+	    context.fillText(line, x, y);
+	    line = words[n] + ' ';
+	    y += lineHeight;
+	  }
+	  else {
+	    line = testLine;
+	  }
+	}
+	context.fillText(line, x, y);
+}
+
 function spellLabel(spell) {
-    if (spell.highlight) ctx.fillStyle = 'blue';
-    else ctx.fillStyle = 'white';
-    ctx.font = "10px Verdana";
-    ctx.textAlign = "center";
-    if (spell.name.lastIndexOf("<>") < 0) {
-        ctx.fillText(spell.name, spell.x, spell.y - 12);
-    } else {
-        ctx.fillText(spell.name.substr(0, spell.name.lastIndexOf("<>")), spell.x, spell.y - 22);
-        ctx.fillText(spell.name.substr(spell.name.lastIndexOf("<>") + 2), spell.x, spell.y - 12);
-    }
-    ctx.fillText("Lvl: " + spell.level, spell.x, spell.y + 20);
+	if (spell.highlight) ctx.fillStyle = 'blue';
+	else ctx.fillStyle = 'white';
+	
+	ctx.font = "10px Verdana";
+    	ctx.textAlign = "center";
+	wrapText(ctx,spell.name,spell.x,spell.y - 20,50,9);
+	ctx.fillText("Lvl: " + spell.level, spell.x, spell.y + 20);
 }
 
 var spellX = [
 	40, 120, 200, 280, 360, 440, 520, 600, 680, 760, 840, 920, 1000, 1080, 1160,
   40, 120, 200, 280, 360, 440, 520, 600, 680, 760, 840, 920, 1000, 1080, 1160,
   40, 120, 200, 280, 360, 440, 520, 600, 680, 760, 840, 920, 1000, 1080, 1160,
+  40, 120, 200, 280, 360, 440, 520, 600, 680, 760, 840, 920, 1000, 1080, 1160,
   40, 120, 200, 280, 360, 440, 520, 600, 680, 760, 840, 920, 1000, 1080, 1160
 ];
 
 var spellY = [
-	500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500,
-  560, 560, 560, 560, 560, 560, 560, 560, 560, 560, 560, 560, 560, 560, 560,
-  620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620,
-  680, 680, 680, 680, 680, 680, 680, 680, 680, 680, 680, 680, 680, 680, 680
+	640, 640, 640, 640, 640, 640, 640, 640, 640, 640, 640, 640, 640, 640, 640,
+  700, 700, 700, 700, 700, 700, 700, 700, 700, 700, 700, 700, 700, 700, 700,
+  760, 760, 760, 760, 760, 760, 760, 760, 760, 760, 760, 760, 760, 760, 760,
+  820, 820, 820, 820, 820, 820, 820, 820, 820, 820, 820, 820, 820, 820, 820, 
+  880, 880, 880, 880, 880, 880, 880, 880, 880, 880, 880, 880, 880, 880, 880
 ];
 
 var spells = [];
 
 //Abjuration
 var abjuration = [
-	["Blade Ward", 0],
-	["Absorb Elements", 1],
-	["Alarm", 1],
-	["Mage Armor", 1],
-	["Protection from<>Evil and Good", 1],
-	["Shield", 1],
-	["Snare", 1],
-	["Arcane Lock", 2],
-	["Counterspell", 3],
-	["Dispel Magic", 3],
-	["Glyph of<>Warding", 3],
-	["Magic Circle", 3],
-	["Nondetection", 3],
-	["Protection from<>Energy", 3],
-	["Remove Curse", 3],
-	["Banishment", 4],
-	["Mordenkainen's<>Private Sanctum", 4],
-	["Stoneskin", 4],
-	["Planar Binding", 5],
-	["Globe of<>Invulnerability", 6],
-	["Guards and<>Wards", 6],
-	["Symbol", 7],
-	["Antimagic<>Field", 8],
-	["Mind Blank", 8],
-	["Imprisonment", 9],
-	["Invulnerability", 9],
-	["Prismatic<>Wall", 9]
+	["Blade Ward",0],
+	["Absorb Elements",1],
+	["Alarm",1],
+	["Mage Armor",1],
+	["Protection from Evil and Good",1],
+	["Shield",1],
+	["Snare",1],
+	["Arcane Lock",2],
+	["Counterspell",3],
+	["Dispel Magic",3],
+	["Glyph of Warding",3],
+	["Magic Circle",3],
+	["Nondetection",3],
+	["Protection from Energy",3],
+	["Remove Curse",3],
+	["Banishment",4],
+	["Mordenkainens Private Sanctum",4],
+	["Stoneskin",4],
+	["Planar Binding",5],
+	["Globe of Invulnerability",6],
+	["Guards and Wards",6],
+	["Symbol",7],
+	["Antimagic Field",8],
+	["Mind Blank",8],
+	["Imprisonment",9],
+	["Invulnerability",9],
+	["Prismatic Wall",9]
 ];
 for(i = 0; i < abjuration.length; i++) {
 	spells[spells.length] = new spell(abjuration[i][0], "Abjuration", abjuration[i][1], spellX[i], spellY[i]);
 }
 //Conjuration
 var conjuration = [
-	["Acid Splash", 0],
-	["Create Bonfire", 0],
-	["Mage Hand", 0],
-	["Poison Spray", 0],
-	["Sword Burst", 0],
-	["Find Familiar", 1],
-	["Fog Cloud", 1],
-	["Grease", 1],
-	["Ice Knife", 1],
-	["Tenser's Floating<>Disk", 1],
-	["Unseen<>Servent", 1],
-	["Cloud of<>Daggers", 2],
-	["Dust Devil", 2],
-	["Flaming<>Sphere", 2],
-	["Misty Step", 2],
-	["Web", 2],
-	["Leomund's<>Tiny Hut", 3],
-	["Sleet Storm", 3],
-	["Stinking Cloud", 3],
-	["Tidal Wave", 3],
-	["Conjure Minor<>Elementals", 4],
-	["Dimension Door", 4],
-	["Evard's Black<>Tentacles", 4],
-	["Leomund's<>Secret Chest", 4],
-	["Mordenkainen's<>Faithful Hound", 4],
-	["Watery<>Sphere", 4],
-	["Cloud Kill", 5],
-	["Conjure<>Elemental", 5],
-	["Teleportation<>Circle", 5],
-	["Arcane Gate", 6],
-	["Instant<>Summons", 6],
-	["Mordenkainen's<>Magnificent Mansion", 7],
-	["Plane Shift", 7],
-	["Teleport", 7],
-	["Demiplane", 8],
-	["Incendiary<>Cloud", 8],
-	["Maze", 8],
-	["Gate", 9],
-	["Wish", 9]
+	["Acid Splash",0],
+	["Create Bonfire",0],
+	["Infestation",0],
+	["Mage Hand",0],
+	["Poison Spray",0],
+	["Sword Burst",0],
+	["Find Familiar",1],
+	["Fog Cloud",1],
+	["Grease",1],
+	["Ice Knife",1],
+	["Tensers Floating Disk",1],
+	["Unseen Servant",1],
+	["Cloud of Daggers",2],
+	["Dust Devil",2],
+	["Flaming Sphere",2],
+	["Misty Step",2],
+	["Web",2],
+	["Sleet Storm",3],
+	["Stinking Cloud",3],
+	["Summon Lesser Demons",3],
+	["Thunder Step",3],
+	["Tidal Wave",3],
+	["Conjure Minor Elementals",4],
+	["Dimension Door",4],
+	["Evards Black Tentacles",4],
+	["Leomunds Secret Chest",4],
+	["Mordenkainens Faithful Hound",4],
+	["Summon Greater Demon",4],
+	["Watery Sphere",4],
+	["Cloudkill",5],
+	["Conjure Elemental",5],
+	["Far Step",5],
+	["Infernal Calling",5],
+	["Steel Wind Strike",5],
+	["Teleportation Circle",5],
+	["Arcane Gate",6],
+	["Drawmijs Instant Summons",6],
+	["Scatter",6],
+	["Mordenkainens Magnificent Mansion",7],
+	["Plane Shift",7],
+	["Teleport",7],
+	["Demiplane",8],
+	["Incendiary Cloud",8],
+	["Maze",8],
+	["Mighty Fortress",8],
+	["Gate",9],
+	["Wish",9]
 ];
 for(i = 0; i < conjuration.length; i++) {
 	spells[spells.length] = new spell(conjuration[i][0], "Conjuration", conjuration[i][1], spellX[i], spellY[i]);
 }
 //Divination
 var divination = [
-	["True Strike", 0],
-	["Comprehend<>Languages", 1],
-	["Detect Magic", 1],
-	["Identify", 1],
-	["Detect<>Thoughts", 2],
-	["Locate Object", 2],
-	["See<>Invisibility", 2],
-	["Clairvoyance", 3],
-	["Tongues", 3],
-	["Arcane Eye", 4],
-	["Locate Creature", 4],
-	["Contact Other<>Plane", 5],
-	["Legend Lore", 5],
-	["Rary's Telepathic<>Bond", 5],
-	["Scrying", 5],
-	["True Seeing", 5],
-	["Forsight", 9]
+	["True Strike",0],
+	["Comprehend Languages",1],
+	["Detect Magic",1],
+	["Identify",1],
+	["Detect Thoughts",2],
+	["Locate Object",2],
+	["Mind Spike",2],
+	["See invisibility",2],
+	["Clairvoyance",3],
+	["Tongues",3],
+	["Arcane Eye",4],
+	["Locate Creature",4],
+	["Contact Other Plane",5],
+	["Legend Lore",5],
+	["Rarys Telepathic Bond",5],
+	["Scrying",5],
+	["True Seeing",6],
+	["Foresight",9]
 ];
 for(i = 0; i < divination.length; i++) {
 	spells[spells.length] = new spell(divination[i][0], "Divination", divination[i][1], spellX[i], spellY[i]);
 }
 //Enchantment 
 var enchantment = [
-	["Friends", 0],
-	["Charm Person", 1],
-	["Sleep", 1],
-	["Tasha's Hideous<>Laughter", 1],
-	["Crown of<>Madness", 2],
-	["Hold Person", 2],
-	["Sugguestion", 2],
-	["Confusion", 4],
-	["Dominate Person", 5],
-	["Geas", 5],
-	["Hold Monster", 5],
-	["Modify Memory", 5],
-	["Mass<>Suggestion", 6],
-	["Otto's Irresistible<>Dance", 6],
-	["Antipathy/<>Sympathy", 8],
-	["Dominate<>Monster", 8],
-	["Feeblemind", 8],
-	["Power Word<>Stun", 8],
-	["Power Word<>Kill", 9]
+	["Friends",0],
+	["Charm Person",1],
+	["Sleep",1],
+	["Tashas Hideous Laughter",1],
+	["Crown of Madness",2],
+	["Hold Person",2],
+	["Suggestion",2],
+	["Catnap",3],
+	["Enemies abound",3],
+	["Charm Monster",4],
+	["Confusion",4],
+	["Dominate Person",5],
+	["Geas",5],
+	["Hold Monster",5],
+	["Modify Memory",5],
+	["Synaptic Static",5],
+	["Mass Suggestion",6],
+	["Ottos Irresistible Dance",6],
+	["Power Word Pain",7],
+	["Antipathy/Sympathy",8],
+	["Dominate Monster",8],
+	["Feeblemind",8],
+	["Power Word Stun",8],
+	["Power Word Kill",9],
+	["Psychic Scream",9]
 ];
 for(i = 0; i < enchantment.length; i++) {
 	spells[spells.length] = new spell(enchantment[i][0], "Enchantment", enchantment[i][1], spellX[i], spellY[i]);
 }
 //Evocation
 var evocation = [
-	["Booming<>Blade", 0],
-  ["Dancing Lights", 0],
-  ["Fire Bolt", 0],
-  ["Frostbite", 0],
-  ["Green-Flame<>Blade", 0],
-  ["Light", 0],
-  ["Lightning Lure", 0],
-  ["Ray of Frost", 0],
-  ["Shocking<>Grasp", 0],
-  ["Thunderclap", 0],
-  ["Burning<>Hands", 1],
-  ["Chromatic Orb", 1],
-  ["Earth Tremor", 1],
-  ["Magic Missile", 1],
-  ["Thunderwave", 1],
-  ["Witch<>Bolt", 1],
-  ["Aganazzar’s<>Scorcher", 2],
-  ["Continual<>Flame", 2],
-  ["Darkness", 2],
-  ["Gust of<>Wind", 2],
-  ["Melf’s Acid<>Arrow", 2],
-  ["Scorching<>Ray", 2],
-  ["Shatter", 2],
-  ["Snilloc’s Snowball<>Swarm", 2],
-  ["Fireball", 3],
-  ["Lightning Bolt", 3],
-  ["Melf's Minute<>Meteors", 3],
-  ["Sending", 3],
-  ["Wall of Sand", 3],
-  ["Wall of Water", 3],
-  ["Fire Shield", 4],
-  ["Ice Storm", 4],
-  ["Otiluke’s<>Resilient Sphere", 4],
-  ["Storm<>Sphere", 4],
-  ["Vitriolic Sphere", 4],
-  ["Wall of Fire", 4],
-  ["Bigby's Hand", 5],
-  ["Cone of Cold", 5],
-  ["Immolation", 5],
-  ["Wall of Force", 5],
-  ["Wall of Stone", 5],
-  ["Chain<>Lightning", 6],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  []
+	["Booming Blade",0],
+	["Dancing Lights",0],
+	["Fire Bolt",0],
+	["Frostbite",0],
+	["Green-Flame Blade",0],
+	["Light",0],
+	["Lightning Lure",0],
+	["Ray of Frost",0],
+	["Shocking Grasp",0],
+	["Thunderclap",0],
+	["Burning Hands",1],
+	["Chromatic Orb",1],
+	["Earth Tremor",1],
+	["Magic Missile",1],
+	["Thunderwave",1],
+	["Witch Bolt",1],
+	["Aganazzars Scorcher",2],
+	["Continual Flame",2],
+	["Darkness",2],
+	["Gust of Wind",2],
+	["Melfs Acid Arrow",2],
+	["Scorching Ray",2],
+	["Shatter",2],
+	["Snillocs Snowball Swarm",2],
+	["Warding Wind",2],
+	["Fireball",3],
+	["Leomunds Tiny Hut",3],
+	["Lightning Bolt",3],
+	["Melfs Minute Meteors",3],
+	["Sending",3],
+	["Wall of Sand",3],
+	["Wall of Water",3],
+	["Fire Shield",4],
+	["Ice Storm",4],
+	["Otilukes Resilient Sphere",4],
+	["Sickening Radiance",4],
+	["Storm Sphere",4],
+	["Vitriolic Sphere",4],
+	["Wall of Fire",4],
+	["Bigbys Hand",5],
+	["Cone of Cold",5],
+	["Dawn",5],
+	["Immolation",5],
+	["Wall of Force",5],
+	["Wall of Light",5],
+	["Wall of Stone",5],
+	["Chain Lightning",6],
+	["Contingency",6],
+	["Otilukes Freezing Sphere",6],
+	["Sunbeam",6],
+	["Wall of Ice",6],
+	["Crown of Stars",7],
+	["Delayed Blast Fireball",7],
+	["Forcecage",7],
+	["Mordenkainens Sword",7],
+	["Prismatic Spray",7],
+	["Whirlwind",7],
+	["Maddening Darkness",8],
+	["Sunburst",8],
+	["Telepathy",8],
+	["Meteor Swarm",9]
 ];
-/*for(i = 0; i < evocation.length; i++) {
-	spells[spells.length] = new spell(evocation[i][0], "Evocation", evocation[i][1], spellX[i], spellY[i]);
-}*/
 
-spells[spells.length] = new spell("Booming<>Blade", "Evocation", 0, 40, 500);
-spells[spells.length] = new spell("Dancing Lights", "Evocation", 0, 120, 500);
-spells[spells.length] = new spell("Fire Bolt", "Evocation", 0, 200, 500);
-spells[spells.length] = new spell("Frostbite", "Evocation", 0, 280, 500);
-spells[spells.length] = new spell("Green-Flame<>Blade", "Evocation", 0, 360, 500);
-spells[spells.length] = new spell("Light", "Evocation", 0, 440, 500);
-spells[spells.length] = new spell("Lightning Lure", "Evocation", 0, 520, 500);
-spells[spells.length] = new spell("Ray of Frost", "Evocation", 0, 600, 500);
-spells[spells.length] = new spell("Shocking<>Grasp", "Evocation", 0, 680, 500);
-spells[spells.length] = new spell("Burning<>Hands", "Evocation", 1, 760, 500);
-spells[spells.length] = new spell("Chromatic Orb", "Evocation", 1, 840, 500);
-spells[spells.length] = new spell("Earth Tremor", "Evocation", 1, 920, 500);
-spells[spells.length] = new spell("Magic Missile", "Evocation", 1, 1000, 500);
-spells[spells.length] = new spell("Thunderclap", "Evocation", 0, 1080, 500);
-spells[spells.length] = new spell("Thunderwave", "Evocation", 1, 1160, 500);
-spells[spells.length] = new spell("Witch<>Bolt", "Evocation", 1, 40, 560);
-spells[spells.length] = new spell("Aganazzar’s<>Scorcher", "Evocation", 2, 120, 560);
-spells[spells.length] = new spell("Continual<>Flame", "Evocation", 2, 200, 560);
-spells[spells.length] = new spell("Darkness", "Evocation", 2, 280, 560);
-spells[spells.length] = new spell("Gust of<>Wind", "Evocation", 2, 360, 560);
-spells[spells.length] = new spell("Melf’s Acid<>Arrow", "Evocation", 2, 440, 560);
-spells[spells.length] = new spell("Scorching<>Ray", "Evocation", 2, 520, 560);
-spells[spells.length] = new spell("Shatter", "Evocation", 2, 600, 560);
-spells[spells.length] = new spell("Snilloc’s Snowball<>Swarm", "Evocation", 2, 680, 560);
-spells[spells.length] = new spell("Fireball", "Evocation", 3, 760, 560);
-spells[spells.length] = new spell("Lightning Bolt", "Evocation", 3, 840, 560);
-spells[spells.length] = new spell("Melf's Minute<>Meteors", "Evocation", 3, 920, 560);
-spells[spells.length] = new spell("Sending", "Evocation", 3, 1000, 560);
-spells[spells.length] = new spell("Wall of Sand", "Evocation", 3, 1080, 560);
-spells[spells.length] = new spell("Wall of Water", "Evocation", 3, 1160, 560);
-spells[spells.length] = new spell("Fire Shield", "Evocation", 4, 40, 620);
-spells[spells.length] = new spell("Ice Storm", "Evocation", 4, 120, 620);
-spells[spells.length] = new spell("Otiluke’s<>Resilient Sphere", "Evocation", 4, 200, 620);
-spells[spells.length] = new spell("Storm<>Sphere", "Evocation", 4, 280, 620);
-spells[spells.length] = new spell("Vitriolic Sphere", "Evocation", 4, 360, 620);
-spells[spells.length] = new spell("Wall of Fire", "Evocation", 4, 440, 620);
-spells[spells.length] = new spell("Bigby's Hand", "Evocation", 5, 520, 620);
-spells[spells.length] = new spell("Cone of Cold", "Evocation", 5, 600, 620);
-spells[spells.length] = new spell("Immolation", "Evocation", 5, 680, 620);
-spells[spells.length] = new spell("Wall of Force", "Evocation", 5, 760, 620);
-spells[spells.length] = new spell("Wall of Stone", "Evocation", 5, 840, 620);
-spells[spells.length] = new spell("Chain<>Lightning", "Evocation", 6, 920, 620);
-spells[spells.length] = new spell("Contingency", "Evocation", 6, 1000, 620);
-spells[spells.length] = new spell("Otiluke's Freezing<>Sphere", "Evocation", 6, 1080, 620);
-spells[spells.length] = new spell("Sunbeam", "Evocation", 6, 1160, 620);
-spells[spells.length] = new spell("Wall of Ice", "Evocation", 6, 40, 680);
-spells[spells.length] = new spell("Delayed Blast<>Fireball", "Evocation", 7, 120, 680);
-spells[spells.length] = new spell("Forcecage", "Evocation", 7, 200, 680);
-spells[spells.length] = new spell("Mordenkainen’s<>Sword", "Evocation", 7, 280, 680);
-spells[spells.length] = new spell("Prismatic Spray", "Evocation", 7, 360, 680);
-spells[spells.length] = new spell("Wirlwind", "Evocation", 7, 440, 680);
-spells[spells.length] = new spell("Sunburst", "Evocation", 8, 520, 680);
-spells[spells.length] = new spell("Telepathy", "Evocation", 8, 600, 680);
-spells[spells.length] = new spell("Meteor Swarm", "Evocation", 9, 680, 680);
+for(i = 0; i < evocation.length; i++) {
+	spells[spells.length] = new spell(evocation[i][0], "Evocation", evocation[i][1], spellX[i], spellY[i]);
+}
+
 //Illusion
-spells[spells.length] = new spell("Minor Illusion", "Illusion", 0, 40, 500);
-spells[spells.length] = new spell("Color Spray", "Illusion", 1, 120, 500);
-spells[spells.length] = new spell("Disguise Self", "Illusion", 1, 200, 500);
-spells[spells.length] = new spell("Illusory Script", "Illusion", 1, 280, 500);
-spells[spells.length] = new spell("Silent Image", "Illusion", 1, 360, 500);
-spells[spells.length] = new spell("Arcanist's<>Magic Aura", "Illusion", 2, 440, 500);
-spells[spells.length] = new spell("Blur", "Illusion", 2, 520, 500);
-spells[spells.length] = new spell("Invisibility", "Illusion", 2, 600, 500);
-spells[spells.length] = new spell("Magic Mouth", "Illusion", 2, 680, 500);
-spells[spells.length] = new spell("Mirror Image", "Illusion", 2, 760, 500);
-spells[spells.length] = new spell("Nystul’s Magic<>Aura", "Illusion", 2, 840, 500);
-spells[spells.length] = new spell("Phantasmal<>Force", "Illusion", 2, 920, 500);
-spells[spells.length] = new spell("Fear", "Illusion", 3, 1000, 500);
-spells[spells.length] = new spell("Hypnotic<>Pattern", "Illusion", 3, 1080, 500);
-spells[spells.length] = new spell("Major Image", "Illusion", 3, 1160, 500);
-spells[spells.length] = new spell("Phantom<>Steed", "Illusion", 3, 40, 560);
-spells[spells.length] = new spell("Greater<>Invisibility", "Illusion", 4, 120, 560);
-spells[spells.length] = new spell("Hallucinatory<>Terrain", "Illusion", 4, 200, 560);
-spells[spells.length] = new spell("Phantasmal<>Killer", "Illusion", 4, 280, 560);
-spells[spells.length] = new spell("Creation", "Illusion", 5, 360, 560);
-spells[spells.length] = new spell("Dream", "Illusion", 5, 440, 560);
-spells[spells.length] = new spell("Mislead", "Illusion", 5, 520, 560);
-spells[spells.length] = new spell("Seeming", "Illusion", 5, 600, 560);
-spells[spells.length] = new spell("Programmed<>Illusion", "Illusion", 6, 680, 560);
-spells[spells.length] = new spell("Mirage Arcane", "Illusion", 7, 760, 560);
-spells[spells.length] = new spell("Project Image", "Illusion", 7, 840, 560);
-spells[spells.length] = new spell("Simulacrum", "Illusion", 7, 920, 560);
-spells[spells.length] = new spell("Weird", "Illusion", 9, 1000, 560);
+var illusion = [
+	["Minor Illusion",0],
+	["Color Spray",1],
+	["Disguise Self",1],
+	["Illusory Script",1],
+	["Silent Image",1],
+	["Blur",2],
+	["Invisibility",2],
+	["Magic Mouth",2],
+	["Mirror Image",2],
+	["Nystuls Magic Aura",2],
+	["Phantasmal Force",2],
+	["Shadow Blade",2],
+	["Fear",3],
+	["Hypnotic Pattern",3],
+	["Major Image",3],
+	["Phantom Steed",3],
+	["Greater Invisibility",4],
+	["Hallucinatory Terrain",4],
+	["Phantasmal Killer",4],
+	["Creation",5],
+	["Dream",5],
+	["Mislead",5],
+	["Seeming",5],
+	["Mental Prison",6],
+	["Programmed Illusion",6],
+	["Mirage Arcane",7],
+	["Project Image",7],
+	["Simulacrum",7],
+	["Illusory Dragon",8],
+	["Weird",9]
+];
+for(i = 0; i < illusion.length; i++) {
+	spells[spells.length] = new spell(illusion[i][0], "Illusion", illusion[i][1], spellX[i], spellY[i]);
+}
+
 //Necromancy
-spells[spells.length] = new spell("Chill Touch", "Necromancy", 0, 40, 500);
-spells[spells.length] = new spell("False Life", "Necromancy", 1, 120, 500);
-spells[spells.length] = new spell("Ray of Sickness", "Necromancy", 1, 200, 500);
-spells[spells.length] = new spell("Blindness/<>Deafness", "Necromancy", 2, 280, 500);
-spells[spells.length] = new spell("Gentle Repose", "Necromancy", 2, 360, 500);
-spells[spells.length] = new spell("Ray of<>Enfeeblement", "Necromancy", 2, 440, 500);
-spells[spells.length] = new spell("Animate Dead", "Necromancy", 3, 520, 500);
-spells[spells.length] = new spell("Bestow Curse", "Necromancy", 3, 600, 500);
-spells[spells.length] = new spell("Feign Death", "Necromancy", 3, 680, 500);
-spells[spells.length] = new spell("Vampiric Touch", "Necromancy", 3, 760, 500);
-spells[spells.length] = new spell("Blight", "Necromancy", 4, 840, 500);
+var necromancy = [
+	["Chill Touch",0],
+	["Toll the Dead",0],
+	["Cause Fear",1],
+	["False Life",1],
+	["Ray of Sickness",1],
+	["Blindness/Deafness",2],
+	["Gentle Repose",2],
+	["Ray of Enfeeblement",2],
+	["Animate Dead",3],
+	["Bestow Curse",3],
+	["Feign Death",3],
+	["Life Transference",3],
+	["Vampiric Touch",3],
+	["Blight",4],
+	["Danse Macabre",5],
+	["Enervation",5],
+	["Negative Energy Flood",5],
+	["Circle of Death",6],
+	["Create Undead",6],
+	["Eyebite",6],
+	["Magic Jar",6],
+	["Soul Cage",6],
+	["Finger of Death",7],
+	["Abi-Dalzims Horrid Wilting",8],
+	["Clone",8],
+	["Astral Projection",9]
+];
+for(i = 0; i < necromancy.length; i++) {
+	spells[spells.length] = new spell(necromancy[i][0], "Necromancy", necromancy[i][1], spellX[i], spellY[i]);
+}
 //Transmutation
-spells[spells.length] = new spell("Control<>Flames", "Transmutation", 0, 40, 500);
-spells[spells.length] = new spell("Gust", "Transmutation", 0, 120, 500);
-spells[spells.length] = new spell("Mending", "Transmutation", 0, 200, 500);
-spells[spells.length] = new spell("Message", "Transmutation", 0, 280, 500);
-spells[spells.length] = new spell("Mold Earth", "Transmutation", 0, 360, 500);
-spells[spells.length] = new spell("Prestidigitation", "Transmutation", 0, 440, 500);
-spells[spells.length] = new spell("Shape Water", "Transmutation", 0, 520, 500);
-spells[spells.length] = new spell("Catapult", "Transmutation", 1, 600, 500);
-spells[spells.length] = new spell("Expeditious<>Retreat", "Transmutation", 1, 680, 500);
-spells[spells.length] = new spell("Feather Fall", "Transmutation", 1, 760, 500);
-spells[spells.length] = new spell("Jump", "Transmutation", 1, 840, 500);
-spells[spells.length] = new spell("Longstrider", "Transmutation", 1, 920, 500);
-spells[spells.length] = new spell("Altar Self", "Transmutation", 2, 1000, 500);
-spells[spells.length] = new spell("Darkvision", "Transmutation", 2, 1080, 500);
-spells[spells.length] = new spell("Earthbind", "Transmutation", 2, 1160, 500);
-spells[spells.length] = new spell("Enlarge/<>Reduce", "Transmutation", 2, 40, 560);
-spells[spells.length] = new spell("Knock", "Transmutation", 2, 120, 560);
-spells[spells.length] = new spell("Levitate", "Transmutation", 2, 200, 560);
-spells[spells.length] = new spell("Magic Weapon", "Transmutation", 2, 280, 560);
-spells[spells.length] = new spell("Maximilian’s<>Earthen Grasp", "Transmutation", 2, 360, 560);
-spells[spells.length] = new spell("Pyrotechnics", "Transmutation", 2, 440, 560);
-spells[spells.length] = new spell("Rope Trick", "Transmutation", 2, 520, 560);
-spells[spells.length] = new spell("Skywrite", "Transmutation", 2, 600, 560);
-spells[spells.length] = new spell("Spider Climb", "Transmutation", 2, 680, 560);
-spells[spells.length] = new spell("Blink", "Transmutation", 3, 760, 560);
-spells[spells.length] = new spell("Erupting Earth", "Transmutation", 3, 840, 560);
-spells[spells.length] = new spell("Flame Arrows", "Transmutation", 3, 920, 560);
-spells[spells.length] = new spell("Fly", "Transmutation", 3, 1000, 560);
-spells[spells.length] = new spell("Gaseous Form", "Transmutation", 3, 1080, 560);
-spells[spells.length] = new spell("Haste", "Transmutation", 3, 1160, 560);
-spells[spells.length] = new spell("Slow", "Transmutation", 3, 40, 620);
-spells[spells.length] = new spell("Water<>Breathing", "Transmutation", 3, 120, 620);
-spells[spells.length] = new spell("Control Water", "Transmutation", 4, 200, 620);
-spells[spells.length] = new spell("Elemental Bane", "Transmutation", 4, 280, 620);
-spells[spells.length] = new spell("Fabricate", "Transmutation", 4, 360, 620);
-spells[spells.length] = new spell("Polymorph", "Transmutation", 4, 440, 620);
-spells[spells.length] = new spell("Stone Shape", "Transmutation", 4, 520, 620);
+var transmutation = [
+	["Control Flames",0],
+	["Gust",0],
+	["Mending",0],
+	["Message",0],
+	["Mold earth",0],
+	["Prestidigitation",0],
+	["Shape Water",0],
+	["Catapult",1],
+	["Expeditious Retreat",1],
+	["Feather Fall",1],
+	["Jump",1],
+	["Longstrider",1],
+	["Alter Self",2],
+	["Darkvision",2],
+	["Dragons Breath",2],
+	["Earthbind",2],
+	["Enlarge/Reduce",2],
+	["Knock",2],
+	["Levitate",2],
+	["Magic Weapon",2],
+	["Maximilians Earthen Grasp",2],
+	["Pyrotechnics",2],
+	["Rope Trick",2],
+	["Skywrite",2],
+	["Spider Climb",2],
+	["Blink",3],
+	["Erupting Earth",3],
+	["Flame Arrows",3],
+	["Fly",3],
+	["Gaseous Form",3],
+	["Haste",3],
+	["Slow",3],
+	["Tiny Servant",3],
+	["Water Breathing",3],
+	["Control Water",4],
+	["Elemental Bane",4],
+	["Fabricate",4],
+	["Polymorph",4],
+	["Stone Shape",4],
+	["Animate Objects",5],
+	["Control Winds",5],
+	["Passwall",5],
+	["Skill Empowerment",5],
+	["Telekinesis",5],
+	["Transmute Rock",5],
+	["Create Homunculus",6],
+	["Disintegrate",6],
+	["Flesh to Stone",6],
+	["Investiture of Flame",6],
+	["Investiture of Ice",6],
+	["Investiture of Stone",6],
+	["Investiture of Wind",6],
+	["Move Earth",6],
+	["Tensers Transformation",6],
+	["Etherealness",7],
+	["Reverse Gravity",7],
+	["Sequester",7],
+	["Control Weather",8],
+	["Mass Polymorph",9],
+	["Shapechange",9],
+	["Time Stop",9],
+	["True Polymorph",9]
+];
+for(i = 0; i < transmutation.length; i++) {
+	spells[spells.length] = new spell(transmutation[i][0], "Transmutation", transmutation[i][1], spellX[i], spellY[i]);
+}
+
 
 function button(x, y, w, h, school) {
     this.x = x;
@@ -467,26 +515,26 @@ button.prototype.draw = function() {
 }
 
 var buttons = [];
-buttons[buttons.length] = new button(0, 440, 150, 25, "Abjuration");
-buttons[buttons.length] = new button(150, 440, 150, 25, "Conjuration");
-buttons[buttons.length] = new button(300, 440, 150, 25, "Divination");
-buttons[buttons.length] = new button(450, 440, 150, 25, "Enchantment");
-buttons[buttons.length] = new button(600, 440, 150, 25, "Evocation");
-buttons[buttons.length] = new button(750, 440, 150, 25, "Illusion");
-buttons[buttons.length] = new button(900, 440, 150, 25, "Necromancy");
-buttons[buttons.length] = new button(1050, 440, 150, 25, "Transmutation");
+buttons[buttons.length] = new button(0, 575, 150, 25, "Abjuration");
+buttons[buttons.length] = new button(150, 575, 150, 25, "Conjuration");
+buttons[buttons.length] = new button(300, 575, 150, 25, "Divination");
+buttons[buttons.length] = new button(450, 575, 150, 25, "Enchantment");
+buttons[buttons.length] = new button(600, 575, 150, 25, "Evocation");
+buttons[buttons.length] = new button(750, 575, 150, 25, "Illusion");
+buttons[buttons.length] = new button(900, 575, 150, 25, "Necromancy");
+buttons[buttons.length] = new button(1050, 575, 150, 25, "Transmutation");
 
 setInterval(draw, 1);
 
 function draw() {
     ctx.fillStyle = "#555";
-    ctx.fillRect(0, 0, 1200, 720);
+    ctx.fillRect(0, 0, 1200, 900);
 
     ctx.fillStyle = "#888";
-    ctx.fillRect(0, 465, 1200, 255);
+    ctx.fillRect(0, 900, 900, 300);
     
 	ctx.fillStyle = "#333";
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < 9; i++) {
     	ctx.beginPath();
     	if (i % 2 == 0) {
 			for (j = 0; j < 15; j++) { 
@@ -502,7 +550,7 @@ function draw() {
 
     ctx.globalAlpha = 0.1;
     ctx.fillStyle = colors.get(menuSchool);
-    ctx.fillRect(0, 465, 1200, 255);
+    ctx.fillRect(0, 900, 900, 300);
     ctx.globalAlpha = 1;
 
     ctx.fillStyle = "orange";
@@ -525,12 +573,12 @@ function draw() {
     tokenCount = 0;
 
     for (i = 0; i < spells.length; i++) {
-        if (spells[i].y < 440) {
+        if (spells[i].y < 600) {
             if (spells[i].level > 0) preparedCount++;
             else cantripCount++;
             if (spells[i].token) tokenCount++;
             for (j = 0; j < spells.length; j++) {
-                if (spells[j].y < 440 && ((spells[i].level == spells[j].level && spells[i].whitelist.indexOf(spells[j].name) >= 0) || (spells[i].school == spells[j].school && Math.abs(spells[i].level - spells[j].level) == 1))) {
+                if (spells[j].y < 600 && ((spells[i].level == spells[j].level && spells[i].whitelist.indexOf(spells[j].name) >= 0) || (spells[i].school == spells[j].school && Math.abs(spells[i].level - spells[j].level) == 1))) {
                     ctx.beginPath();
                     ctx.moveTo(spells[i].x, spells[i].y);
                     ctx.lineTo(spells[j].x, spells[j].y);
@@ -539,6 +587,7 @@ function draw() {
             }
         }
     }
+
 
     for (i = 0; i < spells.length; i++) {
         if (spells[i].name == addSelect) {
@@ -563,16 +612,16 @@ function draw() {
     }
 
     for (i = 0; i < spells.length; i++) {
-    	if (spells[i].y < 440 && !spells[i].held) {
+    	if (spells[i].y < 600 && !spells[i].held) {
 			spells[i].y = Math.round((spells[i].y - 17) / 70) * 70 + 35;
 			if (Math.round((spells[i].y - 17) / 70) % 2 == 0) spells[i].x = Math.round((spells[i].x - 40) / 80) * 80 + 40;
 			else spells[i].x = Math.round((spells[i].x - 20) / 80) * 80;
     	}
-        if (spells[i].y < 440 || spells[i].school == menuSchool || spells[i].held || spells[i].highlight) spellDraw(spells[i]);
+        if (spells[i].y < 600 || spells[i].school == menuSchool || spells[i].held || spells[i].highlight) spellDraw(spells[i]);
     }
 
     for (i = 0; i < spells.length; i++) {
-        if (spells[i].y < 440 || spells[i].school == menuSchool || spells[i].held || spells[i].highlight) spellLabel(spells[i]);
+        if (spells[i].y < 600 || spells[i].school == menuSchool || spells[i].held || spells[i].highlight) spellLabel(spells[i]);
     }
 
     if (mode == "move") {
@@ -752,7 +801,7 @@ document.onmousedown = function(e) {
                     }
                 }
                 spells[i].held = true;
-            } else if (mode == "add" && spells[i].y < 440) {
+            } else if (mode == "add" && spells[i].y < 600) {
                 if (addSelect == "") addSelect = spells[i].name;
                 else if (spells[i].name == addSelect) addSelect = "";
                 else {
@@ -780,7 +829,7 @@ document.onmousedown = function(e) {
                         addSelect = "";
                     }
                 }
-            } else if (mode == "token" && spells[i].y < 440) {
+            } else if (mode == "token" && spells[i].y < 600) {
                 spells[i].token = !spells[i].token;
             }
             break;
@@ -819,7 +868,7 @@ document.onmouseup = function(e) {
             spells[i].held = false;
             if (spells[i].highlight) {
                 for (k = spells.length - 1; k >= 0; k--) {
-                    if (spells[k].y > 440) {
+                    if (spells[k].y > 600) {
                         spells[k].x = spells[k].homeX;
                         spells[k].y = spells[k].homeY;
                         spells[k].token = false;
@@ -832,7 +881,7 @@ document.onmouseup = function(e) {
                         }
                     }
                 }
-            } else if (spells[i].y > 440) {
+            } else if (spells[i].y > 600) {
                 spells[i].x = spells[i].homeX;
                 spells[i].y = spells[i].homeY;
                 spells[i].token = false;
