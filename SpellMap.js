@@ -205,7 +205,7 @@ var conjuration = [
 	["Summon Fey",3],
 	["Summon Lesser Demons",3],
 	["Summon Shadowspawn",3],
-  ["Thunder Step",3],
+	["Thunder Step",3],
 	["Tidal Wave",3],
 	["Conjure Minor Elementals",4],
 	["Dimension Door",4],
